@@ -29,3 +29,6 @@ func main() {
 
 ## License
 "Do-whatever-you-want-License 2.0
+
+## Disclaimer
+Not promoting 4chan, this is a helper utility for NSA.
