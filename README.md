@@ -4,7 +4,7 @@ It provides a simple API to get structs from HTTP API responses.
 
 It has been written using standard lib only so there are no dependencies.
 ## Installation
-`go get -u github.com/mtarnawa/gochan-desu`
+`go get -u github.com/mtarnawa/godesu`
 ## Usage
 See full example in `example/main.go`.
 
@@ -29,3 +29,6 @@ func main() {
 
 ## License
 "Do-whatever-you-want-License 2.0
+
+## Disclaimer
+Not promoting 4chan, this is a helper utility for NSA.
