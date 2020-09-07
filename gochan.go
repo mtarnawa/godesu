@@ -2,10 +2,11 @@ package godesu
 
 import (
 	"fmt"
+	"strconv"
 )
 
 type Gochan struct {
-	c *client
+	c *Client
 }
 
 type board struct {
@@ -24,7 +25,7 @@ type Image struct {
 
 func New() *Gochan {
 	return &Gochan{
-		c: newClient(),
+		c: NewClient(),
 		}
 	}
 
@@ -35,6 +36,7 @@ func (g *Gochan) Board(name string) *board {
 func (b *board) GetThread(number int) (err error, thread Thread) {
 	err = b.gochan.c.Get(
 		fmt.Sprintf("/%s/thread/%d.json", b.name, number), &thread)
+	thread.board = b.name
 	return
 }
 
@@ -100,12 +102,11 @@ func (g *Gochan) GetBoards() (err error, model Boards) {
 func (t *Thread) Images() (result Images) {
 	for _, p := range t.Posts {
 		if p.Tim > 0 {
-			filename := fmt.Sprintf("%d%s", p.Tim, p.Ext)
 			result = append(result,
 				Image{
-					URL:              IMG(fmt.Sprintf("/%s/%s", t.board, filename)),
+					URL:              IMG(fmt.Sprintf("/%s/%s", t.board, strconv.FormatInt(p.Tim, 10)+p.Ext)),
 					OriginalFilename: p.Filename + p.Ext,
-					Filename:         filename,
+					Filename:         strconv.FormatInt(p.Tim, 10),
 					Extension:        p.Ext,
 				})
 		}

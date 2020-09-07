@@ -14,13 +14,13 @@ var (
 	IMG_DOMAIN = "i.4cdn.org"
 )
 
-type client struct {
+type Client struct {
 	raw *http.Client
 	globalHeaders map[string]string
 }
 
-func newClient() *client {
-	return &client{
+func NewClient() *Client {
+	return &Client{
 		raw: &http.Client{
 			Timeout: time.Second * 60,
 		},
@@ -30,7 +30,7 @@ func newClient() *client {
 	}
 }
 
-func (c *client) Get(endpoint string, model interface{}) error {
+func (c *Client) Get(endpoint string, model interface{}) error {
 	resp, err := c.raw.Get(URL(endpoint))
 	if err != nil {
 		return err
