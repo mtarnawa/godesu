@@ -27,8 +27,11 @@ func main() {
 }
 ```
 
+## Implementations
+* [LordRusk/goscrape](https://github.com/LordRusk/goscrape) - concurrent downloader/scraper for 4chan media files.
+
 ## License
 "Do-whatever-you-want-License 2.0
 
 ## Disclaimer
-Not promoting 4chan, this is a helper utility for NSA.
+Not promoting 4chan, this is a helper utility for the NSA.
