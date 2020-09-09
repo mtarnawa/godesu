@@ -10,7 +10,7 @@ type Gochan struct {
 }
 
 type board struct {
-	name string
+	Name string
 	gochan *Gochan
 }
 
@@ -35,15 +35,15 @@ func (g *Gochan) Board(name string) *board {
 
 func (b *board) GetThread(number int) (err error, thread Thread) {
 	err = b.gochan.c.Get(
-		fmt.Sprintf("/%s/thread/%d.json", b.name, number), &thread)
-	thread.board = b.name
+		fmt.Sprintf("/%s/thread/%d.json", b.Name, number), &thread)
+	thread.Board = b.Name
 	return
 }
 
 func (b *board) GetPage(number int) (err error, model PaginatedThreads) {
 	err = b.gochan.c.Get(
-		fmt.Sprintf("/%s/%d.json", b.name, number), &model)
-	model.board = b.name
+		fmt.Sprintf("/%s/%d.json", b.Name, number), &model)
+	model.Board = b.Name
 	model.c = b.gochan
 	return
 }
@@ -62,15 +62,15 @@ func (pt *PaginatedThreads) Thread(number int) (err error, thread Thread) {
 	if !found {
 		return ErrThreadNotFound{number}, Thread{}
 	}
-	err, thread = pt.c.Board(pt.board).GetThread(number)
-	thread.board = pt.board
+	err, thread = pt.c.Board(pt.Board).GetThread(number)
+	thread.Board = pt.Board
 	return
 }
 
 func (b *board) GetCatalog() (err error, model CatalogModel) {
 
-	err = b.gochan.c.Get(fmt.Sprintf("/%s/catalog.json", b.name), &model.Pages)
-	model.board = b.name
+	err = b.gochan.c.Get(fmt.Sprintf("/%s/catalog.json", b.Name), &model.Pages)
+	model.Board = b.Name
 	model.c = b.gochan
 	return
 }
@@ -89,8 +89,8 @@ func (cm *CatalogModel) Thread(number int) (err error, thread Thread) {
 	if !found {
 		return ErrThreadNotFound{number}, Thread{}
 	}
-	err, thread = cm.c.Board(cm.board).GetThread(number)
-	thread.board = cm.board
+	err, thread = cm.c.Board(cm.Board).GetThread(number)
+	thread.Board = cm.Board
 	return
 }
 
@@ -104,7 +104,7 @@ func (t *Thread) Images() (result Images) {
 		if p.Tim > 0 {
 			result = append(result,
 				Image{
-					URL:              IMG(fmt.Sprintf("/%s/%s", t.board, strconv.FormatInt(p.Tim, 10)+p.Ext)),
+					URL:              IMG(fmt.Sprintf("/%s/%s", t.Board, strconv.FormatInt(p.Tim, 10)+p.Ext)),
 					OriginalFilename: p.Filename + p.Ext,
 					Filename:         strconv.FormatInt(p.Tim, 10),
 					Extension:        p.Ext,
