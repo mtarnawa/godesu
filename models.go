@@ -73,7 +73,7 @@ type CatalogModel struct {
 
 type Catalog struct {
 	Page    int `json:"page"`
-	Threads []struct {
+	threads []struct {
 		No            int    `json:"no"`
 		Sticky        int    `json:"sticky,omitempty"`
 		Closed        int    `json:"closed,omitempty"`
@@ -119,11 +119,12 @@ type Catalog struct {
 		} `json:"last_replies,omitempty"`
 		Trip string `json:"trip,omitempty"`
 	} `json:"threads"`
+	Threads		map[int]struct
 }
 
 type Thread struct {
 	Board string
-	Posts []struct {
+	posts []struct {
 		No          int    `json:"no"`
 		Now         string `json:"now"`
 		Name        string `json:"name"`
@@ -147,6 +148,7 @@ type Thread struct {
 		Images      int    `json:"images,omitempty"`
 		UniqueIps   int    `json:"unique_ips,omitempty"`
 	} `json:"posts"`
+	Posts		map[int]struct
 }
 
 type PaginatedThreads struct {
