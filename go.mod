@@ -1,3 +1,3 @@
-module github.com/lordrusk/godesu
+module github.com/mtarnawa/godesu
 
 go 1.12
