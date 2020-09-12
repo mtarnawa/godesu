@@ -37,7 +37,7 @@ func (b *board) GetThread(number int) (err error, thread Thread) {
 	err = b.gochan.c.Get(
 		fmt.Sprintf("/%s/thread/%d.json", b.Name, number), &thread)
 	thread.Board = b.Name
-	thread.Posts = make(map[int]struct)
+	thread.Posts = make(map[int]Post)
 	for _, post := range thread.posts {
 		thread.Posts[post.No] = post
 	}
