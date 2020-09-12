@@ -1,7 +1,7 @@
 package godesu
 
 type Boards struct {
-	All []Board `json:"boards"`
+	All map[Board.Name]Board `json:"boards"`
 	TrollFlags struct {
 		AC string `json:"AC"`
 		AN string `json:"AN"`
@@ -119,7 +119,6 @@ type Catalog struct {
 		} `json:"last_replies,omitempty"`
 		Trip string `json:"trip,omitempty"`
 	} `json:"threads"`
-	Threads		map[int]struct
 }
 
 type Thread struct {
@@ -148,7 +147,6 @@ type Thread struct {
 		Images      int    `json:"images,omitempty"`
 		UniqueIps   int    `json:"unique_ips,omitempty"`
 	} `json:"posts"`
-	Posts		map[int]struct
 }
 
 type PaginatedThreads struct {
