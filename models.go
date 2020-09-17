@@ -66,7 +66,7 @@ type Board struct {
 }
 
 type CatalogModel struct {
-	board string
+	Board string
 	c *Gochan
 	Pages []Catalog
 }
@@ -122,7 +122,7 @@ type Catalog struct {
 }
 
 type Thread struct {
-	board string
+	Board string
 	Posts []struct {
 		No          int    `json:"no"`
 		Now         string `json:"now"`
@@ -150,7 +150,7 @@ type Thread struct {
 }
 
 type PaginatedThreads struct {
-	board string
+	Board string
 	c *Gochan
 	All []struct {
 		Posts []struct {
