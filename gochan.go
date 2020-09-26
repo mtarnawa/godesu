@@ -99,15 +99,16 @@ func (g *Gochan) GetBoards() (err error, model Boards) {
 	return
 }
 
-func (t *Thread) Images() (result map[int]Image) {
+func (t *Thread) Images() (result Images) {
 	for _, p := range t.Posts {
 		if p.Tim > 0 {
-			result[p.No] = Image{
-				URL:              IMG(fmt.Sprintf("/%s/%s", t.Board, strconv.FormatInt(p.Tim, 10)+p.Ext)),
-				OriginalFilename: p.Filename + p.Ext,
-				Filename:         strconv.FormatInt(p.Tim, 10),
-				Extension:        p.Ext,
-			}
+			result = append(result,
+				Image{
+					URL:              IMG(fmt.Sprintf("/%s/%s", t.Board, strconv.FormatInt(p.Tim, 10)+p.Ext)),
+					OriginalFilename: p.Filename + p.Ext,
+					Filename:         strconv.FormatInt(p.Tim, 10),
+					Extension:        p.Ext,
+				})
 		}
 	}
 	return

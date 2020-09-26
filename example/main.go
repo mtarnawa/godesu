@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/mtarnawa/godesu"
+	"github.com/lordrusk/godesu"
 )
 
 func main() {
@@ -38,18 +38,19 @@ func main() {
 
 	// Get the selected thread
 	_, thread := w.GetThread(1565459)
+	images := thread.Images()
 	for _, post := range thread.Posts {
-		println(post.No)
+		fmt.Println(images[post.No])
 	}
 
 	// Get images from a thread
-	images := thread.Images()
-	for _, image := range images {
-		fmt.Printf(
-			"url: %s\n" +
-				"filename: %s\n" +
-				"extension: %s\n" +
-				"original filename: %s\n",
-				image.URL, image.Filename, image.Extension, image.OriginalFilename)
-	}
+	//images := thread.Images()
+	//for _, image := range images {
+	//		fmt.Printf(
+	//			"url: %s\n"+
+	//				"filename: %s\n"+
+	//				"extension: %s\n"+
+	//				"original filename: %s\n",
+	//			image.URL, image.Filename, image.Extension, image.OriginalFilename)
+	//	}
 }
