@@ -10,24 +10,24 @@ type Gochan struct {
 }
 
 type board struct {
-	Name string
+	Name   string
 	gochan *Gochan
 }
 
 type Images []Image
 
 type Image struct {
-	URL string
+	URL              string
 	OriginalFilename string
-	Filename string
-	Extension string
+	Filename         string
+	Extension        string
 }
 
 func New() *Gochan {
 	return &Gochan{
 		c: NewClient(),
-		}
 	}
+}
 
 func (g *Gochan) Board(name string) *board {
 	return &board{name, g}
@@ -50,7 +50,7 @@ func (b *board) GetPage(number int) (err error, model PaginatedThreads) {
 
 func (pt *PaginatedThreads) Thread(number int) (err error, thread Thread) {
 	var found bool
-	pages:
+pages:
 	for _, page := range pt.All {
 		for _, post := range page.Posts {
 			if post.No == number {
@@ -77,7 +77,7 @@ func (b *board) GetCatalog() (err error, model CatalogModel) {
 
 func (cm *CatalogModel) Thread(number int) (err error, thread Thread) {
 	var found bool
-	pages:
+pages:
 	for _, p := range cm.Pages {
 		for _, thread := range p.Threads {
 			if thread.No == number {
@@ -99,16 +99,15 @@ func (g *Gochan) GetBoards() (err error, model Boards) {
 	return
 }
 
-func (t *Thread) Images() (result Images) {
+func (t *Thread) Images() (result map[int]Image) {
 	for _, p := range t.Posts {
 		if p.Tim > 0 {
-			result = append(result,
-				Image{
-					URL:              IMG(fmt.Sprintf("/%s/%s", t.Board, strconv.FormatInt(p.Tim, 10)+p.Ext)),
-					OriginalFilename: p.Filename + p.Ext,
-					Filename:         strconv.FormatInt(p.Tim, 10),
-					Extension:        p.Ext,
-				})
+			result[p.No] = Image{
+				URL:              IMG(fmt.Sprintf("/%s/%s", t.Board, strconv.FormatInt(p.Tim, 10)+p.Ext)),
+				OriginalFilename: p.Filename + p.Ext,
+				Filename:         strconv.FormatInt(p.Tim, 10),
+				Extension:        p.Ext,
+			}
 		}
 	}
 	return
